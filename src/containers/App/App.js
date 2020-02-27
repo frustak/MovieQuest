@@ -44,7 +44,7 @@ const App = props => {
       setSearchData(searchInput);
     } catch (error) {
       console.error(error);
-      alert('something went wrong!');
+      alert(error);
     }
 
     setSearchInput('');
@@ -66,7 +66,7 @@ const App = props => {
         setRawMoviesData(await response.json());
       } catch (error) {
         console.error(error);
-        alert('something went wrong');
+        alert(error);
       }
 
       setIsLoading(false);
@@ -89,7 +89,7 @@ const App = props => {
       setMovieIsShown(true);
     } catch (error) {
       console.error(error);
-      alert('something went wrong');
+      alert(error);
     }
 
     setIsLoading(false);
