@@ -8,6 +8,7 @@ import HashLoader from 'react-spinners/HashLoader';
 import { css } from '@emotion/core';
 import FullMovie from '../../components/FullMovie/FullMovie';
 import Pagination from '../../components/Pagination/Pagination';
+import axios from 'axios';
 
 const override = css`
   position: fixed;
@@ -35,18 +36,12 @@ const App = props => {
     if (!searchInput.trim()) return;
     setIsLoading(true);
 
-    try {
-      const response = await fetch(
-        `http://www.omdbapi.com/?apikey=${API_KEY}&s=${searchInput}`
-      );
+    const response = await axios.get(
+      `http://www.omdbapi.com/?apikey=${API_KEY}&s=${searchInput}`
+    );
 
-      setRawMoviesData(await response.json());
-      setSearchData(searchInput);
-    } catch (error) {
-      console.error(error);
-      alert(error);
-    }
-
+    setRawMoviesData(response.data);
+    setSearchData(searchInput);
     setSearchInput('');
     setActiveStep(0);
     setIsLoading(false);
@@ -55,20 +50,14 @@ const App = props => {
   useEffect(() => {
     const pageHandler = async () => {
       if (activeStep === 0) return;
-
       setIsLoading(true);
 
-      try {
-        const response = await fetch(
-          `http://www.omdbapi.com/?apikey=${API_KEY}&s=${searchData}&page=${activeStep +
-            1}`
-        );
-        setRawMoviesData(await response.json());
-      } catch (error) {
-        console.error(error);
-        alert(error);
-      }
+      const response = await axios.get(
+        `http://www.omdbapi.com/?apikey=${API_KEY}&s=${searchData}&page=${activeStep +
+          1}`
+      );
 
+      setRawMoviesData(response.data);
       setIsLoading(false);
     };
 
@@ -78,20 +67,15 @@ const App = props => {
   const movieClickHandler = async id => {
     setIsLoading(true);
 
-    try {
-      const response = await fetch(
-        `http://www.omdbapi.com/?apikey=${API_KEY}&i=${id}`
-      );
+    const response = await axios.get(
+      `http://www.omdbapi.com/?apikey=${API_KEY}&i=${id}`
+    );
 
-      const goBackHandler = () => setMovieIsShown(false);
-      const movieData = await response.json();
-      setFullMovie(<FullMovie movieData={movieData} clicked={goBackHandler} />);
-      setMovieIsShown(true);
-    } catch (error) {
-      console.error(error);
-      alert(error);
-    }
-
+    const goBackHandler = () => setMovieIsShown(false);
+    setFullMovie(
+      <FullMovie movieData={response.data} clicked={goBackHandler} />
+    );
+    setMovieIsShown(true);
     setIsLoading(false);
   };
 
