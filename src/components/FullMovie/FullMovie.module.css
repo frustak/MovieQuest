@@ -16,7 +16,7 @@
 }
 
 .FullMovie img {
-  margin: 8px;
+  width: 100%;
 }
 
 .FullMovie button {
@@ -27,7 +27,7 @@
   border: none;
   border-radius: 4px;
   padding: 8px;
-  width: 10%;
+  width: 100%;
   margin-bottom: 10px;
   font-family: inherit;
   transition: 0.3s ease-out;
@@ -36,9 +36,15 @@
   cursor: pointer;
 }
 
-.FullMovie button:hover {
-  background-color: white;
-  color: #263238;
-  border: 1px solid #263238;
-  width: 75%;
+@media (min-width: 600px) {
+  .FullMovie button {
+    width: 10%;
+  }
+
+  .FullMovie button:hover {
+    background-color: white;
+    color: #263238;
+    border: 1px solid #263238;
+    width: 75%;
+  }
 }
