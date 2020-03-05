@@ -41,3 +41,9 @@
   background-color: #263238;
   color: white;
 }
+
+@media (max-width: 600px) {
+  .Search {
+    width: 90%;
+  }
+}
