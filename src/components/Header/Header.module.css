@@ -2,9 +2,22 @@
   background-color: #263238;
   color: white;
   padding: 8px;
+  display: flex;
+  justify-content: center;
 }
 
 .Header h1 {
   margin: 0;
   font-family: 'Delius Swash Caps';
+}
+
+.Header img {
+  width: 32px;
+  margin-left: 32px;
+}
+
+@media (max-width: 600px) {
+  .Header h1 {
+    font-size: x-large;
+  }
 }
