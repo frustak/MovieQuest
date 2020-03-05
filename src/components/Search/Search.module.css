@@ -14,6 +14,7 @@
   border-top-right-radius: 16px;
   border-bottom-right-radius: 16px;
   transition: 0.2s ease;
+  background-color: #eceff1;
 }
 
 .Search input:focus {
@@ -35,6 +36,8 @@
   border-right: none;
   border-top-left-radius: 16px;
   border-bottom-left-radius: 16px;
+  background-color: #eceff1;
+  padding-left: 8px;
 }
 
 .Search button:hover {
