@@ -49,7 +49,7 @@ const App = props => {
 
   useEffect(() => {
     const pageHandler = async () => {
-      if (activeStep === 0) return;
+      if (activeStep === 0 && !rawMoviesData) return;
       setIsLoading(true);
 
       const response = await axios.get(
@@ -90,7 +90,10 @@ const App = props => {
         clicked={searchClickHandler}
         inputValue={searchInput}
       />
-      <Motd error={rawMoviesData?.Error} />
+      <Motd
+        error={rawMoviesData?.Error}
+        totalResults={rawMoviesData?.totalResults}
+      />
       <Movies
         moviesData={rawMoviesData?.Search}
         movieClickHandler={movieClickHandler}
