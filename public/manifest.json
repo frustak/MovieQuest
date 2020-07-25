@@ -1,6 +1,6 @@
 {
   "short_name": "Movie Quest",
-  "name": "Quest the Movie",
+  "name": "Movie Quest",
   "start_url": ".",
   "display": "standalone",
   "theme_color": "#000000",

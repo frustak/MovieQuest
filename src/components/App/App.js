@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import styles from './App.module.css';
-import Header from '../../components/Header/Header';
-import Search from '../../components/Search/Search';
-import Motd from '../../components/Motd/Motd';
-import Movies from '../../components/Movies/Movies';
-import HashLoader from 'react-spinners/HashLoader';
+
 import { css } from '@emotion/core';
-import FullMovie from '../../components/FullMovie/FullMovie';
-import Pagination from '../../components/Pagination/Pagination';
+import HashLoader from 'react-spinners/HashLoader';
+import Header from '../Header/Header';
+import Search from '../Search/Search';
+import Motd from '../Motd/Motd';
+import Movies from '../Movies/Movies';
+import FullMovie from '../FullMovie/FullMovie';
+import Pagination from '../Pagination/Pagination';
 import axios from 'axios';
 
 const override = css`
@@ -36,9 +36,7 @@ const App = props => {
     if (!searchInput.trim()) return;
     setIsLoading(true);
 
-    const response = await axios.get(
-      `http://www.omdbapi.com/?apikey=${API_KEY}&s=${searchInput}`
-    );
+    const response = await axios.get(`http://www.omdbapi.com/?apikey=${API_KEY}&s=${searchInput}`);
 
     setRawMoviesData(response.data);
     setSearchData(searchInput);
@@ -53,8 +51,7 @@ const App = props => {
       setIsLoading(true);
 
       const response = await axios.get(
-        `http://www.omdbapi.com/?apikey=${API_KEY}&s=${searchData}&page=${activeStep +
-          1}`
+        `http://www.omdbapi.com/?apikey=${API_KEY}&s=${searchData}&page=${activeStep + 1}`
       );
 
       setRawMoviesData(response.data);
@@ -67,14 +64,10 @@ const App = props => {
   const movieClickHandler = async id => {
     setIsLoading(true);
 
-    const response = await axios.get(
-      `http://www.omdbapi.com/?apikey=${API_KEY}&i=${id}`
-    );
+    const response = await axios.get(`http://www.omdbapi.com/?apikey=${API_KEY}&i=${id}`);
 
     const goBackHandler = () => setMovieIsShown(false);
-    setFullMovie(
-      <FullMovie movieData={response.data} clicked={goBackHandler} />
-    );
+    setFullMovie(<FullMovie movieData={response.data} clicked={goBackHandler} />);
     setMovieIsShown(true);
     setIsLoading(false);
   };
@@ -82,22 +75,12 @@ const App = props => {
   return movieIsShown ? (
     <div>{fullMovie}</div>
   ) : (
-    <div className={styles.App}>
+    <div>
       <HashLoader loading={isLoading} css={override} />
       <Header />
-      <Search
-        changed={searchChangeHandler}
-        clicked={searchClickHandler}
-        inputValue={searchInput}
-      />
-      <Motd
-        error={rawMoviesData?.Error}
-        totalResults={rawMoviesData?.totalResults}
-      />
-      <Movies
-        moviesData={rawMoviesData?.Search}
-        movieClickHandler={movieClickHandler}
-      />
+      <Search changed={searchChangeHandler} clicked={searchClickHandler} inputValue={searchInput} />
+      <Motd error={rawMoviesData?.Error} totalResults={rawMoviesData?.totalResults} />
+      <Movies moviesData={rawMoviesData?.Search} movieClickHandler={movieClickHandler} />
       {rawMoviesData?.totalResults > ITEM_PER_PAGE ? (
         <Pagination
           activeStep={activeStep}
